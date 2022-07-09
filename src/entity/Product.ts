@@ -6,21 +6,29 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
-} from "typeorm";
+  OneToMany,
+} from 'typeorm';
+import { Presentation } from './Presentation';
 
 @Entity()
-export class User extends BaseEntity {
+export class Product extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  firstname: string;
+  name: string;
 
   @Column()
-  lastname: string;
+  tax: number;
 
-  @Column({ default: true })
-  active: boolean;
+  @Column()
+  barCode: string;
+
+  @OneToMany(() => Presentation, (presentation) => presentation.product)
+  presentations: Presentation[];
+
+  @Column()
+  updatedBy: string;
 
   @DeleteDateColumn()
   deletedAt: Date;
