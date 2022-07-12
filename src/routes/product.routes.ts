@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { query } from 'express-validator';
+import { query, param } from 'express-validator';
 import { ProductController } from '../controllers/product.controller';
 
 const router = Router();
@@ -14,5 +14,10 @@ router.get(
 );
 
 router.post('/products', productController.createProduct);
+router.delete(
+  '/products/:id',
+  param('id').isNumeric().notEmpty(),
+  productController.deleteProduct
+);
 
 export default router;

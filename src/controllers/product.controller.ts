@@ -59,4 +59,22 @@ export class ProductController {
       return res.status(500).json({ error: get(e, 'message') });
     }
   }
+
+  async deleteProduct(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+
+      const result = await Product.delete({ id: parseInt(id) });
+
+      if (result.affected === 0)
+        return res.status(404).json({ message: 'Product not found' });
+
+      return res.sendStatus(204);
+    } catch (e) {
+      if (e instanceof HttpError) {
+        return res.status(e.statusCode).json({ error: get(e, 'message') });
+      }
+      return res.status(500).json({ error: get(e, 'message') });
+    }
+  }
 }

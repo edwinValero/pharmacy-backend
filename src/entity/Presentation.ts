@@ -25,7 +25,7 @@ export class Presentation extends BaseEntity {
   @Column()
   amount: number;
 
-  @ManyToOne(() => Product, (product) => product.id)
+  @ManyToOne(() => Product, (product) => product.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'productId' })
   product!: Product;
 
